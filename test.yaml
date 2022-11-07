@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test
+data:
+  test.sh: |
+    #!/bin/bash
+    set -ex
+    touch /tmp/test.txt
+    exec systemd-run --scope --slice=system sleep 50000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: containerd-test
+spec:
+  hostIPC: true
+  hostNetwork: true
+  hostPID: true
+  containers:
+  - name: containerd-test
+    image: docker.io/openstackhelm/libvirt:latest-ubuntu_focal
+    command:
+      - /tmp/test.sh
+    readinessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/test.txt
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    volumeMounts:
+    - name: test
+      mountPath: /tmp/test.sh
+      subPath: test.sh
+    - mountPath: /run
+      name: run
+    - mountPath: /dev
+      name: dev
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
+    securityContext:
+      privileged: true
+      readOnlyRootFilesystem: false
+  volumes:
+  - name: test
+    configMap:
+      name: test
+      defaultMode: 0555
+  - hostPath:
+      path: /run
+      type: ""
+    name: run
+  - hostPath:
+      path: /dev
+      type: ""
+    name: dev
