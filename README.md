@@ -17,7 +17,7 @@ b": OCI runtime exec failed: exec failed: unable to start container process: err
 ```
 
 ## Workaround/fix is use cgroups v2
-Changing system to use cgroups v2 resolves the issue. Adding `systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all` to `/etc/default/grub` to the arguments for variable `GRUB_CMDLINE_LINUX` followed by a reboot resolves the issue.
+Changing system to use cgroups v2 resolves the issue. Adding `systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all` to `/etc/default/grub` to the arguments for variable `GRUB_CMDLINE_LINUX` then run `update-grub` followed by a reboot resolves the issue.
 
 ## System Information
 
