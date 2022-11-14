@@ -21,23 +21,31 @@ Changing system to use cgroups v2 resolves the issue. Adding `systemd.unified_cg
 
 ## System Information
 
-**OS**: Ubuntu 18.04
-Kernel: 4.15.0-167-generic
-
+**OS**: 
+```
+Ubuntu 18.04
+```
+**Kernel**: 
+```
+4.15.0-167-generic
+```
 **Systemd**: 
+```
 systemd 237
 +PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN2 +IDN -PCRE2 default-hierarchy=hybrid
-
+```
 **Runc**:
+```
 runc version 1.1.4
 commit: v1.1.4-0-g5fd4c4d
 spec: 1.0.2-dev
 go: go1.18.7
 libseccomp: 2.5.1
-
+```
 **Containerd**:
+```
 containerd containerd.io 1.6.9 1c90a442489720eec95342e1789ee8a5e1b9536f
-
+```
 **Containerd config**:
 ```
 #   Copyright 2018-2022 Docker Inc.
@@ -74,7 +82,8 @@ disabled_plugins = ["cri"]
 ```
 
 **Kind**:
+```
 kind version 0.17.0
-
+```
 ### Installed packages
 [distro-packages.txt](distro-packages.txt)
